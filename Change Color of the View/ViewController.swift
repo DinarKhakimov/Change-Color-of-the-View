@@ -39,6 +39,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .black
         
+        setLabelValue()
+        
         setupSlider(slider: redColorSlider, color: .red)
         setupSlider(slider: greenColorSlider, color: .green)
         setupSlider(slider: blueColorSlider, color: .blue)
@@ -47,9 +49,7 @@ class ViewController: UIViewController {
     
     @IBAction func rgbChangeColorSlider() {
         viewColorChange()
-        valueRedLabel.text = String(format:"%.2f", redColorSlider.value)
-        valueGreenLabel.text = String(format: "%.2f", greenColorSlider.value)
-        valueBlueLabel.text = String(format: "%.2f", blueColorSlider.value)
+        setLabelValue()
     }
 }
 
@@ -64,5 +64,11 @@ extension ViewController {
     
     private func setupSlider (slider: UISlider, color: UIColor) {
         slider.tintColor = color
+    }
+    
+    private func setLabelValue() {
+        valueRedLabel.text = String(format:"%.2f", redColorSlider.value)
+        valueGreenLabel.text = String(format: "%.2f", greenColorSlider.value)
+        valueBlueLabel.text = String(format: "%.2f", blueColorSlider.value)
     }
 }
