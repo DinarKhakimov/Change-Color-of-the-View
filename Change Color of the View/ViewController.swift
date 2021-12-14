@@ -39,17 +39,25 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .black
         
-        setLabelValue()
+        
+        viewColorChange()
+        setValue(for: valueRedLabel, valueGreenLabel, valueBlueLabel)
         
         setupSlider(slider: redColorSlider, color: .red)
         setupSlider(slider: greenColorSlider, color: .green)
         setupSlider(slider: blueColorSlider, color: .blue)
     }
     
-    
-    @IBAction func rgbChangeColorSlider() {
+    @IBAction func rgbChangeSlider(_ sender: UISlider) {
         viewColorChange()
-        setLabelValue()
+        switch sender {
+        case redColorSlider:
+            setValue(for: valueRedLabel)
+        case greenColorSlider:
+            setValue(for: valueGreenLabel)
+        default:
+            setValue(for: valueBlueLabel)
+        }
     }
 }
 
@@ -66,9 +74,20 @@ extension ViewController {
         slider.tintColor = color
     }
     
-    private func setLabelValue() {
-        valueRedLabel.text = String(format:"%.2f", redColorSlider.value)
-        valueGreenLabel.text = String(format: "%.2f", greenColorSlider.value)
-        valueBlueLabel.text = String(format: "%.2f", blueColorSlider.value)
+    private func setValue(for labels: UILabel...) {
+        labels.forEach { label in
+            switch label {
+            case valueRedLabel:
+                label.text = string(from: redColorSlider)
+            case valueGreenLabel:
+                label.text = string(from: greenColorSlider)
+            default:
+                label.text = string(from: blueColorSlider)
+            }
+        }
+    }
+    
+    private func string(from slider: UISlider) -> String {
+        String(format: "%.2f", slider.value)
     }
 }
